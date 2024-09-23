@@ -63,16 +63,8 @@ const AppNavigator = () => {
         headerTitleStyle: {
           fontWeight: 'bold',
         },
-        headerRight: () => {
-          if (route.name !== 'AdminInicio' && route.name !== 'Settings') {
-            return (
-              <TouchableOpacity onPress={() => alert('Logout')}>
-                <Icon name="sign-out" size={24} color="white" style={{ marginRight: 15 }} />
-              </TouchableOpacity>
-            );
-          }
-          return null;
-        },
+        headerRight: () =>  null
+        ,
       }}
     >
       <Stack.Screen name="AdminInicio" component={AdminInicioScreen} options={{ title: 'Menu Admin' }} />
