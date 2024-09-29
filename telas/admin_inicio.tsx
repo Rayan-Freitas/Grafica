@@ -5,6 +5,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import MeusPedidosScreen from './meus_pedidos';
+import { GerenciarPedidosScreen } from './admin/gerenciar_pedidos';
 
 const { width } = Dimensions.get('window');
 
@@ -68,7 +69,7 @@ const AppNavigator = () => {
       }}
     >
       <Stack.Screen name="AdminInicio" component={AdminInicioScreen} options={{ title: 'Menu Admin' }} />
-      <Stack.Screen name={nomeTelaGerenciarPedidos} component={MeusPedidosScreen} options={{ title: 'Gerenciar Pedidos' }} />
+      <Stack.Screen name={nomeTelaGerenciarPedidos} component={GerenciarPedidosScreen} options={{ title: 'Gerenciar Pedidos' }} />
       <Stack.Screen name={nomeTelaGerenciarClientes} component={telaGerenciarClientes} options={{ title: 'Gerenciar Clientes' }} />
       <Stack.Screen name={nomeTelaGerenciarOrcamentos} component={telaGerenciarOrcamentos} options={{ title: 'Gerenciar Orçamentos' }} />
       <Stack.Screen name={nomeTelaRelatorios} component={telaRelatorios} options={{ title: 'Relatórios' }} />
