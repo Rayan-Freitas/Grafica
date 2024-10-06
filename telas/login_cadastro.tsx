@@ -1,82 +1,105 @@
-//login_cadastro.tsx
-import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity } from 'react-native';
-import { StackNavigationProp } from '@react-navigation/stack';
+import React from 'react';
+import { View, StyleSheet, Text, Image } from 'react-native';
+import { TextInput, Button } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import logo from '@/assets/images/logo.jpg'; // Importando a imagem
 
 type RootStackParamList = {
-  LoginCadastro: undefined;
+  LoginScreen: undefined;
+  RegisterScreen: undefined;
   Home: undefined;
 };
 
-type LoginCadastroNavigationProp = StackNavigationProp<RootStackParamList, 'LoginCadastro'>;
+type LoginCadastroNavigationProp = StackNavigationProp<RootStackParamList, 'LoginScreen'>;
 
-const LoginCadastro = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const navigation = useNavigation<LoginCadastroNavigationProp>();
+export const LoginScreen = () => {
+    const [email, setEmail] = React.useState('');
+    const [password, setPassword] = React.useState('');
+    const navigation = useNavigation<LoginCadastroNavigationProp>();
 
-  const handleLogin = () => {
-    if (username === 'Fulano' && password === '123456') {
-      navigation.navigate('Home');
-    } else {
-      alert('Credenciais inválidas');
-    }
-  };
+    const handleLogin = () => {
+      if (email === 'Fulano' && password === '123456') {
+        navigation.navigate('Home');
+      } else {
+        alert('Credenciais inválidas');
+      }
+    };
 
-  return (
-    <View style={styles.container}>
-      <Text style={styles.header}>Login</Text>
-      <View style={styles.form}>
-        <TextInput
-          style={styles.input}
-          placeholder="Usuário"
-          value={username}
-          onChangeText={setUsername}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Senha"
-          secureTextEntry
-          value={password}
-          onChangeText={setPassword}
-        />
-        <Button
-          title="Entrar"
-          onPress={handleLogin}
-        />
-      </View>
-    </View>
-  );
+    return (
+        <View style={styles.container}>
+            <Image source={logo} style={styles.icon} /> {/* Usando a imagem dos assets */}
+            <Text style={styles.title}>Gráfica Ideal</Text>
+            <TextInput
+                label="Email"
+                value={email}
+                mode="outlined"
+                onChangeText={text => setEmail(text)}
+                style={styles.input}
+                left={<TextInput.Icon icon="email" />}
+            />
+            <TextInput
+                label="Senha"
+                value={password}
+                mode="outlined"
+                secureTextEntry
+                onChangeText={text => setPassword(text)}
+                style={styles.input}
+                left={<TextInput.Icon icon="lock" />}
+            />
+            <Button
+                mode="contained"
+                onPress={() => handleLogin()}
+                style={styles.button}
+            >
+                Entrar
+            </Button>
+            <Button
+                mode="text"
+                textColor='green'
+                labelStyle={styles.textButton}
+                onPress={() => {
+                  navigation.navigate('RegisterScreen');
+                }}
+                style={styles.textButton}
+            >
+                Ainda não tem uma conta? Criar conta
+            </Button>
+        </View>
+    );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
-    backgroundColor: '#16273d', // Cor de fundo
-  },
-  header: {
-    fontSize: 24,
-    color: 'white', // Cor do texto
-    marginBottom: 20,
-  },
-  form: {
-    width: '100%',
-    maxWidth: 400,
-  },
-  input: {
-    height: 40,
-    borderColor: '#ccc',
-    borderWidth: 1,
-    marginBottom: 15,
-    paddingHorizontal: 10,
-    borderRadius: 5,
-    backgroundColor: 'white', // Fundo dos campos de entrada
-    color: '#16273d', // Cor do texto de entrada
-  },
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        padding: 20,
+        backgroundColor: '#ffffff',
+    },
+    icon: {
+        alignSelf: 'center',
+        marginBottom: 20,
+        width: 175, // Defina a largura da imagem
+        height: 175, // Defina a altura da imagem
+        borderRadius: 50, // Arredondando as bordas
+    },
+    title: {
+        fontSize: 28,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        color: '#16273d',
+        marginBottom: 20,
+    },
+    input: {
+        marginBottom: 15,
+    },
+    button: {
+        backgroundColor: '#16273d',
+        padding: 10,
+        borderRadius: 5,
+    },
+    textButton: {
+        marginTop: 15,
+        fontWeight: '700',
+    },
 });
-
-export default LoginCadastro;
