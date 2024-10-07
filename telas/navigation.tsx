@@ -3,10 +3,25 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { TouchableOpacity } from 'react-native';
-import HomeScreen from './inicio';
+import HomeScreen from './usuario_inicio';
 import AdminScreen from './admin_inicio';
-import { LoginScreen } from './login_cadastro';
-import RegisterScreen from './registro_cadastro'; // Importe sua nova tela de registro
+import { LoginScreen } from './inicio/login_cadastro';
+import RegisterScreen from './inicio/registro_cadastro';
+import OrderCreationScreen from './painel_usuario/criar_pedido';
+import ModelSelectionScreen from './painel_usuario/selecionar_modelos_pedidos';
+import PaymentScreen from './painel_usuario/pagamento_pedido';
+import MeusPedidosScreen from './painel_usuario/meus_pedidos';
+
+export type RootStackParamList = {
+  LoginScreen: undefined;
+  RegisterScreen: undefined;
+  Home: undefined;
+  OrderCreationScreen: undefined;
+  PaymentScreen: { orderStatus: any };
+  WebViewScreen: { url: any };
+  ModelSelectionScreen: { onSelectModel: (model: string) => void };
+  MeusPedidosScreen: undefined;
+};
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -62,6 +77,10 @@ const Navigation = () => (
         ),
       }}
     />
+    <Stack.Screen name="OrderCreationScreen" component={OrderCreationScreen} options={{ title: 'Criar Pedido' }} />
+    <Stack.Screen name="ModelSelectionScreen" component={ModelSelectionScreen} options={{ title: 'Selecionar Modelo' }} />
+    <Stack.Screen name="PaymentScreen" component={PaymentScreen} options={{ title: 'Selecionar Modelo' }} />
+    <Stack.Screen name="MeusPedidosScreen" component={MeusPedidosScreen} options={{ title: 'Meus Pedidos' }} />
   </Stack.Navigator>
 );
 

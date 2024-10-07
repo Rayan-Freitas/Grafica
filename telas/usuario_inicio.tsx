@@ -4,10 +4,11 @@
   import Icon from 'react-native-vector-icons/FontAwesome';
   import { createStackNavigator } from '@react-navigation/stack';
   import { useNavigation, useRoute } from '@react-navigation/native'; // Adicionar imports para navegação e rota
-import MeusPedidosScreen from './meus_pedidos';
+import MeusPedidosScreen from './painel_usuario/meus_pedidos';
+import OrderCreationScreen from './painel_usuario/criar_pedido';
   const { width } = Dimensions.get('window');
 
-  const nomeTelaCriarPedidos = 'TelaCriarPedidos'
+  const nomeTelaCriarPedidos = 'OrderCreationScreen'
   const nomeTelaMeusPedidos = 'TelaMeusPedidos'
   const nomeTelaOrcamentos = 'TelaOrcamentos'
   const nomeTelaMeusDados = 'TelaMeusDados'
@@ -26,8 +27,6 @@ import MeusPedidosScreen from './meus_pedidos';
   ];
 
   // Componentes falsos para as telas
-  const telaCriarPedidos = () => <View style={styles.fakeScreen}><Text>Sua tela aqui - Tela 1</Text></View>;
-  const telaMeusPedidos = () => <MeusPedidosScreen />;
   const telaOrcamentos = () => <View style={styles.fakeScreen}><Text>Sua tela aqui - Tela 3</Text></View>;
   const telaMeusDados = () => <View style={styles.fakeScreen}><Text>Sua tela aqui - Tela 4</Text></View>;
   const telaPromocoesOfertas = () => <View style={styles.fakeScreen}><Text>Sua tela aqui - Tela 5</Text></View>;
@@ -86,8 +85,8 @@ import MeusPedidosScreen from './meus_pedidos';
         }}
       >
         <Stack.Screen name="Home" component={HomeScreen} options={{ title: 'Menu Principal' }} />
-        <Stack.Screen name={nomeTelaCriarPedidos} component={telaCriarPedidos} options={{ title: 'Criar Pedido' }} />
-        <Stack.Screen name={nomeTelaMeusPedidos} component={telaMeusPedidos} options={{ title: 'Meus Pedidos' }} />
+        <Stack.Screen name={nomeTelaCriarPedidos} component={OrderCreationScreen} options={{ title: 'Criar Pedido' }} />
+        <Stack.Screen name={nomeTelaMeusPedidos} component={MeusPedidosScreen} options={{ title: 'Meus Pedidos' }} />
         <Stack.Screen name={nomeTelaOrcamentos} component={telaOrcamentos} options={{ title: 'Orçamentos' }} />
         <Stack.Screen name={nomeTelaMeusDados} component={telaMeusDados} options={{ title: 'Meus Dados' }} />
         <Stack.Screen name={nomeTelaPromocoesOfertas} component={telaPromocoesOfertas} options={{ title: 'Promoções e Ofertas' }} />

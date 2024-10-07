@@ -4,8 +4,8 @@ import { FlatList, TouchableOpacity, Text, StyleSheet, View, Dimensions } from '
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import MeusPedidosScreen from './meus_pedidos';
-import { GerenciarPedidosScreen } from './admin/gerenciar_pedidos';
+import MeusPedidosScreen from './painel_usuario/meus_pedidos';
+import { GerenciarPedidosScreen } from './painel_admin/gerenciar_pedidos';
 
 const { width } = Dimensions.get('window');
 

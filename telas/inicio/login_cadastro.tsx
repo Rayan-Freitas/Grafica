@@ -3,13 +3,8 @@ import { View, StyleSheet, Text, Image } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '@/telas/navigation';
 import logo from '@/assets/images/logo.jpg'; // Importando a imagem
-
-type RootStackParamList = {
-  LoginScreen: undefined;
-  RegisterScreen: undefined;
-  Home: undefined;
-};
 
 type LoginCadastroNavigationProp = StackNavigationProp<RootStackParamList, 'LoginScreen'>;
 
