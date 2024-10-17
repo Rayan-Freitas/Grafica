@@ -6,6 +6,8 @@
   import { useNavigation, useRoute } from '@react-navigation/native'; // Adicionar imports para navegação e rota
 import MeusPedidosScreen from './painel_usuario/meus_pedidos';
 import OrderCreationScreen from './painel_usuario/criar_pedido';
+import MeusDadosScreen from './painel_usuario/meus_dados';
+import AjudaSuporteScreen from './painel_usuario/ajuda_suporte';
   const { width } = Dimensions.get('window');
 
   const nomeTelaCriarPedidos = 'OrderCreationScreen'
@@ -19,9 +21,9 @@ import OrderCreationScreen from './painel_usuario/criar_pedido';
   const menuItems = [
     { id: '1', title: 'Criar Pedido', icon: 'file-text', screen: nomeTelaCriarPedidos, adminOnly: false },
     { id: '2', title: 'Meus Pedidos', icon: 'list-alt', screen: nomeTelaMeusPedidos, adminOnly: false },
-    { id: '3', title: 'Orçamentos', icon: 'money', screen: nomeTelaOrcamentos, adminOnly: false },
+    // { id: '3', title: 'Orçamentos', icon: 'money', screen: nomeTelaOrcamentos, adminOnly: false },
     { id: '4', title: 'Meus Dados', icon: 'user-circle', screen: nomeTelaMeusDados, adminOnly: false },
-    { id: '5', title: 'Promoções e Ofertas', icon: 'tags', screen: nomeTelaPromocoesOfertas, adminOnly: false },
+    // { id: '5', title: 'Promoções e Ofertas', icon: 'tags', screen: nomeTelaPromocoesOfertas, adminOnly: false },
     { id: '6', title: 'Ajuda e Suporte', icon: 'question-circle', screen: nomeTelaAjudaSuporte, adminOnly: false },
     { id: '7', title: 'Histórico de Pagamentos', icon: 'credit-card', screen: nomeTelaHistoricoDePagamentos, adminOnly: false },
   ];
@@ -87,10 +89,10 @@ import OrderCreationScreen from './painel_usuario/criar_pedido';
         <Stack.Screen name="Home" component={HomeScreen} options={{ title: 'Menu Principal' }} />
         <Stack.Screen name={nomeTelaCriarPedidos} component={OrderCreationScreen} options={{ title: 'Criar Pedido' }} />
         <Stack.Screen name={nomeTelaMeusPedidos} component={MeusPedidosScreen} options={{ title: 'Meus Pedidos' }} />
-        <Stack.Screen name={nomeTelaOrcamentos} component={telaOrcamentos} options={{ title: 'Orçamentos' }} />
-        <Stack.Screen name={nomeTelaMeusDados} component={telaMeusDados} options={{ title: 'Meus Dados' }} />
-        <Stack.Screen name={nomeTelaPromocoesOfertas} component={telaPromocoesOfertas} options={{ title: 'Promoções e Ofertas' }} />
-        <Stack.Screen name={nomeTelaAjudaSuporte} component={telaAjudaSuporte} options={{ title: 'Ajuda e Suporte' }} />
+        {/* <Stack.Screen name={nomeTelaOrcamentos} component={telaOrcamentos} options={{ title: 'Orçamentos' }} /> */}
+        <Stack.Screen name={nomeTelaMeusDados} component={MeusDadosScreen} options={{ title: 'Meus Dados' }} />
+        {/* <Stack.Screen name={nomeTelaPromocoesOfertas} component={telaPromocoesOfertas} options={{ title: 'Promoções e Ofertas' }} /> */}
+        <Stack.Screen name={nomeTelaAjudaSuporte} component={AjudaSuporteScreen} options={{ title: 'Ajuda e Suporte' }} />
         <Stack.Screen name={nomeTelaHistoricoDePagamentos} component={telaHistoricoDePagamentos} options={{ title: 'Histórico de Pagamentos' }} />
       </Stack.Navigator> //TODO Criar nomes reais e limpar código
     );

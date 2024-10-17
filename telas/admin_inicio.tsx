@@ -4,8 +4,8 @@ import { FlatList, TouchableOpacity, Text, StyleSheet, View, Dimensions } from '
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import MeusPedidosScreen from './painel_usuario/meus_pedidos';
 import { GerenciarPedidosScreen } from './painel_admin/gerenciar_pedidos';
+import GerenciarClientesScreen from './painel_admin/gerenciar_clientes';
 
 const { width } = Dimensions.get('window');
 
@@ -20,7 +20,7 @@ const nomeTelaAjudaSuporte = 'TelaAjudaSuporte';
 const menuItems = [
   { id: '1', title: 'Gerenciar Pedidos', icon: 'list-alt', screen: nomeTelaGerenciarPedidos },
   { id: '2', title: 'Gerenciar Clientes', icon: 'users', screen: nomeTelaGerenciarClientes },
-  { id: '3', title: 'Gerenciar Orçamentos', icon: 'money', screen: nomeTelaGerenciarOrcamentos },
+  // { id: '3', title: 'Gerenciar Orçamentos', icon: 'money', screen: nomeTelaGerenciarOrcamentos },
   { id: '4', title: 'Relatórios', icon: 'bar-chart', screen: nomeTelaRelatorios },
   { id: '5', title: 'Configurações', icon: 'cog', screen: nomeTelaConfiguracoes },
   { id: '6', title: 'Ajuda e Suporte', icon: 'question-circle', screen: nomeTelaAjudaSuporte },
@@ -70,8 +70,8 @@ const AppNavigator = () => {
     >
       <Stack.Screen name="AdminInicio" component={AdminInicioScreen} options={{ title: 'Menu Admin' }} />
       <Stack.Screen name={nomeTelaGerenciarPedidos} component={GerenciarPedidosScreen} options={{ title: 'Gerenciar Pedidos' }} />
-      <Stack.Screen name={nomeTelaGerenciarClientes} component={telaGerenciarClientes} options={{ title: 'Gerenciar Clientes' }} />
-      <Stack.Screen name={nomeTelaGerenciarOrcamentos} component={telaGerenciarOrcamentos} options={{ title: 'Gerenciar Orçamentos' }} />
+      <Stack.Screen name={nomeTelaGerenciarClientes} component={GerenciarClientesScreen} options={{ title: 'Gerenciar Clientes' }} />
+      {/* <Stack.Screen name={nomeTelaGerenciarOrcamentos} component={telaGerenciarOrcamentos} options={{ title: 'Gerenciar Orçamentos' }} /> */}
       <Stack.Screen name={nomeTelaRelatorios} component={telaRelatorios} options={{ title: 'Relatórios' }} />
       <Stack.Screen name={nomeTelaConfiguracoes} component={telaConfiguracoes} options={{ title: 'Configurações' }} />
       <Stack.Screen name={nomeTelaAjudaSuporte} component={telaAjudaSuporte} options={{ title: 'Ajuda e Suporte' }} />
@@ -116,7 +116,6 @@ const styles = StyleSheet.create({
 });
 
 // Defina componentes falsos para as telas do admin aqui
-const telaGerenciarClientes = () => <View style={styles.fakeScreen}><Text>Sua tela aqui - Gerenciar Clientes</Text></View>;
 const telaGerenciarOrcamentos = () => <View style={styles.fakeScreen}><Text>Sua tela aqui - Gerenciar Orçamentos</Text></View>;
 const telaRelatorios = () => <View style={styles.fakeScreen}><Text>Sua tela aqui - Relatórios</Text></View>;
 const telaConfiguracoes = () => <View style={styles.fakeScreen}><Text>Sua tela aqui - Configurações</Text></View>;

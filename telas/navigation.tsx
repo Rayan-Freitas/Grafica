@@ -11,6 +11,7 @@ import OrderCreationScreen from './painel_usuario/criar_pedido';
 import ModelSelectionScreen from './painel_usuario/selecionar_modelos_pedidos';
 import PaymentScreen from './painel_usuario/pagamento_pedido';
 import MeusPedidosScreen from './painel_usuario/meus_pedidos';
+import GerenciarClientesScreen from './painel_admin/gerenciar_clientes';
 
 export type RootStackParamList = {
   LoginScreen: undefined;
@@ -81,6 +82,7 @@ const Navigation = () => (
     <Stack.Screen name="ModelSelectionScreen" component={ModelSelectionScreen} options={{ title: 'Selecionar Modelo' }} />
     <Stack.Screen name="PaymentScreen" component={PaymentScreen} options={{ title: 'Selecionar Modelo' }} />
     <Stack.Screen name="MeusPedidosScreen" component={MeusPedidosScreen} options={{ title: 'Meus Pedidos' }} />
+    <Stack.Screen name="GerenciarClientesScreen" component={GerenciarClientesScreen} options={{ title: 'Gerenciar Clientes' }} />
   </Stack.Navigator>
 );
 
