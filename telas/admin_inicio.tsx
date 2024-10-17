@@ -6,6 +6,9 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { GerenciarPedidosScreen } from './painel_admin/gerenciar_pedidos';
 import GerenciarClientesScreen from './painel_admin/gerenciar_clientes';
+import RelatoriosScreen from './painel_admin/relatorios';
+import ConfiguracoesScreen from './painel_admin/configuracoes';
+import AjudaSuporteScreen from './painel_admin/ajuda_suporte';
 
 const { width } = Dimensions.get('window');
 
@@ -72,9 +75,9 @@ const AppNavigator = () => {
       <Stack.Screen name={nomeTelaGerenciarPedidos} component={GerenciarPedidosScreen} options={{ title: 'Gerenciar Pedidos' }} />
       <Stack.Screen name={nomeTelaGerenciarClientes} component={GerenciarClientesScreen} options={{ title: 'Gerenciar Clientes' }} />
       {/* <Stack.Screen name={nomeTelaGerenciarOrcamentos} component={telaGerenciarOrcamentos} options={{ title: 'Gerenciar Orçamentos' }} /> */}
-      <Stack.Screen name={nomeTelaRelatorios} component={telaRelatorios} options={{ title: 'Relatórios' }} />
-      <Stack.Screen name={nomeTelaConfiguracoes} component={telaConfiguracoes} options={{ title: 'Configurações' }} />
-      <Stack.Screen name={nomeTelaAjudaSuporte} component={telaAjudaSuporte} options={{ title: 'Ajuda e Suporte' }} />
+      <Stack.Screen name={nomeTelaRelatorios} component={RelatoriosScreen} options={{ title: 'Relatórios' }} />
+      <Stack.Screen name={nomeTelaConfiguracoes} component={ConfiguracoesScreen} options={{ title: 'Configurações' }} />
+      <Stack.Screen name={nomeTelaAjudaSuporte} component={AjudaSuporteScreen} options={{ title: 'Ajuda e Suporte' }} />
     </Stack.Navigator>
   );
 };

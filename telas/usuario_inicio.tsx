@@ -8,6 +8,7 @@ import MeusPedidosScreen from './painel_usuario/meus_pedidos';
 import OrderCreationScreen from './painel_usuario/criar_pedido';
 import MeusDadosScreen from './painel_usuario/meus_dados';
 import AjudaSuporteScreen from './painel_usuario/ajuda_suporte';
+import HistoricoPagamentosScreen from './painel_usuario/historico_pagamentos';
   const { width } = Dimensions.get('window');
 
   const nomeTelaCriarPedidos = 'OrderCreationScreen'
@@ -93,7 +94,7 @@ import AjudaSuporteScreen from './painel_usuario/ajuda_suporte';
         <Stack.Screen name={nomeTelaMeusDados} component={MeusDadosScreen} options={{ title: 'Meus Dados' }} />
         {/* <Stack.Screen name={nomeTelaPromocoesOfertas} component={telaPromocoesOfertas} options={{ title: 'Promoções e Ofertas' }} /> */}
         <Stack.Screen name={nomeTelaAjudaSuporte} component={AjudaSuporteScreen} options={{ title: 'Ajuda e Suporte' }} />
-        <Stack.Screen name={nomeTelaHistoricoDePagamentos} component={telaHistoricoDePagamentos} options={{ title: 'Histórico de Pagamentos' }} />
+        <Stack.Screen name={nomeTelaHistoricoDePagamentos} component={HistoricoPagamentosScreen} options={{ title: 'Histórico de Pagamentos' }} />
       </Stack.Navigator> //TODO Criar nomes reais e limpar código
     );
   };

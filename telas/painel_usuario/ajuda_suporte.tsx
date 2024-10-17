@@ -22,12 +22,22 @@ const ticketsMock = [
     // Adicione mais tickets conforme necessário
 ];
 
+// Definindo o tipo para um ticket
+type Ticket = {
+    id: string;
+    titulo: string;
+    mensagem: string;
+    resposta: string;
+    status: string;
+    respostas: { autor: string; texto: string; }[];
+};
+
 const AjudaSuporteScreen = () => {
-    const [tickets, setTickets] = useState(ticketsMock); // Estado que armazena os tickets
-    const [novoTicket, setNovoTicket] = useState({ titulo: '', mensagem: '' }); // Estado para novo ticket
+    const [tickets, setTickets] = useState<Ticket[]>(ticketsMock); // Estado que armazena os tickets
+    const [novoTicket, setNovoTicket] = useState<{ titulo: string; mensagem: string }>({ titulo: '', mensagem: '' }); // Estado para novo ticket
     const [modalVisible, setModalVisible] = useState(false); // Controle de visibilidade do modal para criar ticket
     const [modalRespostasVisible, setModalRespostasVisible] = useState(false); // Controle de visibilidade do modal de respostas
-    const [selectedTicket, setSelectedTicket] = useState(null); // Ticket selecionado para visualizar detalhes
+    const [selectedTicket, setSelectedTicket] = useState<Ticket | null>(null); // Ticket selecionado para visualizar detalhes
 
     // Função para abrir o modal de criação de ticket
     const abrirModalNovoTicket = () => {
@@ -36,7 +46,7 @@ const AjudaSuporteScreen = () => {
     };
 
     // Função para abrir o modal de respostas do ticket
-    const abrirModalRespostas = (ticket) => {
+    const abrirModalRespostas = (ticket: Ticket) => { // Definindo o tipo do parâmetro ticket
         setSelectedTicket(ticket);
         setModalRespostasVisible(true);
     };
@@ -45,7 +55,14 @@ const AjudaSuporteScreen = () => {
     const enviarTicket = () => {
         if (novoTicket.titulo && novoTicket.mensagem) {
             const novoId = (tickets.length + 1).toString();
-            const novoTicketObj = { id: novoId, titulo: novoTicket.titulo, mensagem: novoTicket.mensagem, resposta: '', status: 'Aguardando resposta', respostas: [{ autor: 'Cliente', texto: novoTicket.mensagem }] };
+            const novoTicketObj: Ticket = { 
+                id: novoId, 
+                titulo: novoTicket.titulo, 
+                mensagem: novoTicket.mensagem, 
+                resposta: '', 
+                status: 'Aguardando resposta', 
+                respostas: [{ autor: 'Cliente', texto: novoTicket.mensagem }] 
+            };
             setTickets([...tickets, novoTicketObj]); // Adiciona o novo ticket à lista
             setModalVisible(false); // Fecha o modal
         } else {
@@ -54,7 +71,7 @@ const AjudaSuporteScreen = () => {
     };
 
     // Renderiza cada ticket da lista
-    const renderTicket = ({ item }) => (
+    const renderTicket = ({ item }: { item: Ticket }) => ( // Definindo o tipo do parâmetro item
         <TouchableOpacity style={styles.ticketBox} onPress={() => abrirModalRespostas(item)}>
             <Text style={styles.ticketTitulo}>{item.titulo}</Text>
             <Text style={styles.ticketInfo}>Status: {item.status}</Text>
