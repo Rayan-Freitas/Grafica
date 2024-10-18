@@ -20,7 +20,6 @@ const ConfiguracoesScreen = () => {
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
-            <Text style={styles.title}>Configurações da Gráfica</Text>
 
             <View style={styles.inputContainer}>
                 <Text style={styles.label}>Nome da Gráfica</Text>

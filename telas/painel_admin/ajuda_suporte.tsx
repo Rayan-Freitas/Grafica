@@ -43,7 +43,6 @@ const AjudaSuporteScreen = () => {
 
     return (
         <ScrollView style={styles.container}>
-            <Text style={styles.title}>Ajuda e Suporte</Text>
 
             <FlatList
                 data={ticketsData}
