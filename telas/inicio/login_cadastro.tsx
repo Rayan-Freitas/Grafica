@@ -7,13 +7,13 @@ import { RootStackParamList } from '@/telas/navigation';
 import logo from '@/assets/images/logo.jpg'; // Importando a imagem
 import { AuthContext } from '@/context/AuthContext'; // Importando o contexto de autenticação
 
-type LoginCadastroNavigationProp = StackNavigationProp<RootStackParamList, 'LoginScreen'>;
+type LoginScreenNavigationProp = StackNavigationProp<RootStackParamList, 'LoginScreen'>;
 
 export const LoginScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { signIn } = useContext(AuthContext); // Obtendo a função de login do contexto
-  const navigation = useNavigation<LoginCadastroNavigationProp>();
+  const navigation = useNavigation<LoginScreenNavigationProp>();
 
   const handleLogin = async () => {
     try {

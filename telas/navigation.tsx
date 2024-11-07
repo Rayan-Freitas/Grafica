@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createStackNavigator, StackNavigationProp } from '@react-navigation/stack';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { TouchableOpacity } from 'react-native';
 import HomeScreen from './usuario_inicio';
@@ -28,13 +28,27 @@ export type RootStackParamList = {
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
+// Definir o tipo de navigation para o SignOutButton
+type SignOutButtonProps = {
+  navigation: StackNavigationProp<RootStackParamList, 'LoginScreen'>;
+};
+
 // Componente para renderizar o ícone de logout
-const SignOutButton = () => {
+const SignOutButton = ({ navigation }: SignOutButtonProps) => {
   const { signOut } = useContext(AuthContext); // Hook dentro do componente funcional
+
+  const handleSignOut = () => {
+    console.log("Logoff iniciado, resetando navegação...");
+    signOut();
+    // Reseta a navegação para a tela LoginScreen
+    navigation.reset({
+      index: 0,  // Reseta a pilha e começa da tela de login
+      routes: [{ name: 'LoginScreen' }],  // A tela 'LoginScreen' será a primeira da pilha
+    });
+  };
+
   return (
-    <TouchableOpacity onPress={()=>{
-      signOut();
-    }}>
+    <TouchableOpacity onPress={handleSignOut}>
       <Icon name="sign-out" size={24} color="white" style={{ marginRight: 15 }} />
     </TouchableOpacity>
   );
@@ -65,7 +79,7 @@ const HomeTabs = () => (
 
 const Navigation = () => (
   <Stack.Navigator
-    initialRouteName="LoginCadastro"
+    initialRouteName="LoginScreen"
     screenOptions={{
       headerStyle: {
         backgroundColor: '#16273d',
@@ -76,16 +90,16 @@ const Navigation = () => (
       },
     }}
   >
-    <Stack.Screen name="LoginCadastro" component={LoginScreen} options={{ headerShown: false }} />
+    <Stack.Screen name="LoginScreen" component={LoginScreen} options={{ headerShown: false }} />
     <Stack.Screen name="RegisterScreen" component={RegisterScreen} options={{ title: 'Registrar-se' }} />
     <Stack.Screen
       name="Home"
       component={HomeTabs}
-      options={{
+      options={({ navigation }) => ({
         title: 'Gráfica',
         headerLeft: () => null,
-        headerRight: () => <SignOutButton />, // Usando o componente SignOutButton
-      }}
+        headerRight: () => <SignOutButton navigation={navigation} />, // Passando a navegação para o SignOutButton
+      })}
     />
     <Stack.Screen name="OrderCreationScreen" component={OrderCreationScreen} options={{ title: 'Criar Pedido' }} />
     <Stack.Screen name="ModelSelectionScreen" component={ModelSelectionScreen} options={{ title: 'Selecionar Modelo' }} />
