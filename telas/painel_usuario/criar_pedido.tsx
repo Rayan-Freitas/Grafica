@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { View, StyleSheet, TextInput, Button, Linking } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { RootStackParamList } from '@/telas/navigation';
 import AwesomeAlert from 'react-native-awesome-alerts';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { AuthContext } from '@/context/AuthContext';
+import axios from 'axios';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../navigation';
+import AsyncStorage from '@react-native-async-storage/async-storage'; // Para persistir o token
+import { API_URL } from '@/services/authService';
 
 type OrderCreationNavigationProp = StackNavigationProp<RootStackParamList, 'OrderCreationScreen'>;
 
@@ -13,25 +17,51 @@ const OrderCreationScreen = () => {
   const [quantity, setQuantity] = useState<string>('');
   const [description, setDescription] = useState<string>('');
   const [showAlert, setShowAlert] = useState(false);
-  const [showConfirmDialog, setShowConfirmDialog] = useState(false); // Novo estado para o diálogo de confirmação
+  const [showConfirmDialog, setShowConfirmDialog] = useState(false);
 
   const navigation = useNavigation<OrderCreationNavigationProp>();
 
-  const handleCreateOrder = () => {
+  const handleCreateOrder = async () => {
     if (!selectedModel || !quantity || !description) {
       alert('Preencha todos os campos!');
       return;
     }
-
-    // Exibe o diálogo de confirmação
     setShowConfirmDialog(true);
   };
 
-  const handleConfirmOrder = () => {
+  const handleConfirmOrder = async () => {
     setShowConfirmDialog(false); // Fecha o diálogo de confirmação
-    setShowAlert(true); // Exibe o diálogo de opções
+    try {
+      // Faz o POST do pedido com o token JWT no cabeçalho
+      const token = await AsyncStorage.getItem('token'); // Recupera o token armazenado
+      await axios.post(
+        `${API_URL}/pedidos`,
+        {
+          nome: selectedModel,
+          datacriacao: new Date().toUTCString(),
+          datapagamento: null,
+          dataalteracao: null,
+          valor: 0,
+          quantidade: parseInt(quantity),
+          descricao: description,
+          wstatus: null,
+          idmodelo: 'id_do_modelo_exemplo',
+          idusuario: 'id_do_usuario_exemplo',
+          idfuncionariobaixa: null
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `${token}`
+          }
+        }
+      );
 
-    // Aqui você pode adicionar a lógica para criar o pedido
+      setShowAlert(true); // Exibe o diálogo de opções
+    } catch (error) {
+      console.error('Erro ao criar pedido:', error);
+      alert('Houve um erro ao criar o pedido. Tente novamente.');
+    }
   };
 
   const handleAlertOption = (option: 'payment' | 'orders') => {
@@ -41,7 +71,6 @@ const OrderCreationScreen = () => {
     } else {
       navigation.navigate('MeusPedidosScreen'); // Navega para a tela de Meus Pedidos
     }
-    // Limpar os campos após a ação
     setSelectedModel(null);
     setQuantity('');
     setDescription('');
@@ -75,10 +104,7 @@ const OrderCreationScreen = () => {
         style={styles.input}
       />
 
-      <Button
-        title="Criar Pedido"
-        onPress={handleCreateOrder}
-      />
+      <Button title="Criar Pedido" onPress={handleCreateOrder} />
 
       {/* Diálogo de confirmação */}
       <AwesomeAlert
@@ -120,15 +146,15 @@ const OrderCreationScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+    padding: 20
   },
   input: {
     height: 50,
     borderColor: 'gray',
     borderWidth: 1,
     marginBottom: 20,
-    paddingHorizontal: 10,
-  },
+    paddingHorizontal: 10
+  }
 });
 
 export default OrderCreationScreen;
