@@ -79,7 +79,9 @@ const OrderCreationScreen = () => {
   return (
     <View style={styles.container}>
       <TouchableOpacity
-        onPress={() => navigation.navigate('ModelSelectionScreen', { onSelectModel: setSelectedModel })}
+        onPress={() => {
+          navigation.navigate('ModelSelectionScreen', { onSelectModel: setSelectedModel });
+        }}
       >
         <TextInput
           placeholder="Selecione um Modelo"

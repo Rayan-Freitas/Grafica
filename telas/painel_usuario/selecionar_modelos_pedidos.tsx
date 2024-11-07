@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, FlatList, StyleSheet } from 'react-native';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -24,12 +24,9 @@ const modelOptions = [
 const ModelSelectionScreen = () => {
   const navigation = useNavigation<ModelSelectionScreenNavigationProp>();
   const route = useRoute<ModelSelectionScreenRouteProp>();
+  const [modelSelected, setModelSelected] = useState<string | null>(null);
   const { onSelectModel } = route.params;
 
-  const handleModelSelect = (model: string) => {
-    onSelectModel(model);
-    navigation.goBack(); // Retorna à tela de criação de pedido
-  };
 
   return (
     <View style={styles.container}>
@@ -40,7 +37,15 @@ const ModelSelectionScreen = () => {
         renderItem={({ item }) => (
           <TouchableOpacity
             style={styles.modelItem}
-            onPress={() => handleModelSelect(item)}
+            onPress={() => {
+              setModelSelected(item);
+              console.log(modelSelected)
+              if (modelSelected !== null) {
+                onSelectModel(modelSelected);
+                navigation.goBack(); // Retorna à tela de criação de pedido
+                console.log(modelSelected)
+              }
+            }}
           >
             <Text style={styles.modelText}>{item}</Text>
           </TouchableOpacity>
