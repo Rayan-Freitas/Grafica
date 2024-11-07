@@ -38,7 +38,6 @@ const SignOutButton = ({ navigation }: SignOutButtonProps) => {
   const { signOut } = useContext(AuthContext); // Hook dentro do componente funcional
 
   const handleSignOut = () => {
-    console.log("Logoff iniciado, resetando navegação...");
     signOut();
     // Reseta a navegação para a tela LoginScreen
     navigation.reset({

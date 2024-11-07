@@ -1,5 +1,5 @@
 import axios from 'axios';
-const API_URL = 'https://graficaserver-production.up.railway.app';
+export const API_URL = 'https://graficaserver-production.up.railway.app';
 export const register = async (email: string, password: string, username: string) => {
   try {
     const response = await axios.post(`${API_URL}/auth/register`, {
