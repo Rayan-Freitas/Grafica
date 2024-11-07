@@ -1,16 +1,19 @@
 // RegisterScreen.tsx
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
+import { AuthContext } from '@/context/AuthContext'; // Importando o contexto de autenticação
 
 export const RegisterScreen = () => {
-  const [name, setName] = React.useState(''); // Estado para o nome
-  const [phone, setPhone] = React.useState(''); // Estado para o celular
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
-  const [confirmPassword, setConfirmPassword] = React.useState('');
+  const [name, setName] = useState(''); // Estado para o nome
+  const [phone, setPhone] = useState(''); // Estado para o celular
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  
+  const { signUp } = useContext(AuthContext); // Obtendo a função de registro do contexto
 
-  const handleRegister = () => {
+  const handleRegister = async () => {
     if (!/^\d{10,11}$/.test(phone)) {
       alert('Por favor, insira um número de celular válido (10 ou 11 dígitos).');
       return;
@@ -20,8 +23,14 @@ export const RegisterScreen = () => {
       alert('As senhas não coincidem');
       return;
     }
-    // Implementar lógica de registro aqui
-    alert('Conta registrada com sucesso!');
+
+    try {
+      // Chamando a função de registro do contexto com os dados necessários
+      await signUp( email, password, name );
+      alert('Conta registrada com sucesso!');
+    } catch (error) {
+      alert('Erro ao registrar conta. Tente novamente.');
+    }
   };
 
   return (
@@ -33,7 +42,7 @@ export const RegisterScreen = () => {
         mode="outlined"
         onChangeText={text => setName(text)}
         style={styles.input}
-        left={<TextInput.Icon icon="account" />} // Ícone para o nome
+        left={<TextInput.Icon icon="account" />}
       />
       <TextInput
         label="Celular"
@@ -41,7 +50,7 @@ export const RegisterScreen = () => {
         mode="outlined"
         onChangeText={text => setPhone(text)}
         style={styles.input}
-        left={<TextInput.Icon icon="phone" />} // Ícone para o celular
+        left={<TextInput.Icon icon="phone" />}
       />
       <TextInput
         label="Email"

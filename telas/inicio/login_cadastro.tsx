@@ -1,24 +1,28 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { View, StyleSheet, Text, Image } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '@/telas/navigation';
 import logo from '@/assets/images/logo.jpg'; // Importando a imagem
+import { AuthContext } from '@/context/AuthContext'; // Importando o contexto de autenticação
 
 type LoginCadastroNavigationProp = StackNavigationProp<RootStackParamList, 'LoginScreen'>;
 
 export const LoginScreen = () => {
-    const [email, setEmail] = React.useState('');
-    const [password, setPassword] = React.useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const { signIn } = useContext(AuthContext); // Obtendo a função de login do contexto
     const navigation = useNavigation<LoginCadastroNavigationProp>();
 
-    const handleLogin = () => {
-      if (email === 'Fulano' && password === '123456') {
-        navigation.navigate('Home');
-      } else {
-        alert('Credenciais inválidas');
-      }
+    const handleLogin = async () => {
+        try {
+            // Chamando a função de login do contexto
+            await signIn(email, password);
+            navigation.navigate('Home');
+        } catch (error) {
+            alert('Credenciais inválidas');
+        }
     };
 
     return (
@@ -54,7 +58,7 @@ export const LoginScreen = () => {
                 textColor='green'
                 labelStyle={styles.textButton}
                 onPress={() => {
-                  navigation.navigate('RegisterScreen');
+                    navigation.navigate('RegisterScreen');
                 }}
                 style={styles.textButton}
             >
@@ -74,9 +78,9 @@ const styles = StyleSheet.create({
     icon: {
         alignSelf: 'center',
         marginBottom: 20,
-        width: 175, // Defina a largura da imagem
-        height: 175, // Defina a altura da imagem
-        borderRadius: 50, // Arredondando as bordas
+        width: 175,
+        height: 175,
+        borderRadius: 50,
     },
     title: {
         fontSize: 28,
