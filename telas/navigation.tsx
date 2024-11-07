@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -12,6 +12,7 @@ import ModelSelectionScreen from './painel_usuario/selecionar_modelos_pedidos';
 import PaymentScreen from './painel_usuario/pagamento_pedido';
 import MeusPedidosScreen from './painel_usuario/meus_pedidos';
 import GerenciarClientesScreen from './painel_admin/gerenciar_clientes';
+import { AuthContext } from '@/context/AuthContext';
 
 export type RootStackParamList = {
   LoginScreen: undefined;
@@ -26,6 +27,18 @@ export type RootStackParamList = {
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
+
+// Componente para renderizar o ícone de logout
+const SignOutButton = () => {
+  const { signOut } = useContext(AuthContext); // Hook dentro do componente funcional
+  return (
+    <TouchableOpacity onPress={()=>{
+      signOut();
+    }}>
+      <Icon name="sign-out" size={24} color="white" style={{ marginRight: 15 }} />
+    </TouchableOpacity>
+  );
+};
 
 const HomeTabs = () => (
   <Tab.Navigator
@@ -71,16 +84,12 @@ const Navigation = () => (
       options={{
         title: 'Gráfica',
         headerLeft: () => null,
-        headerRight: () => (
-          <TouchableOpacity onPress={() => alert('Logout')}>
-            <Icon name="sign-out" size={24} color="white" style={{ marginRight: 15 }} />
-          </TouchableOpacity>
-        ),
+        headerRight: () => <SignOutButton />, // Usando o componente SignOutButton
       }}
     />
     <Stack.Screen name="OrderCreationScreen" component={OrderCreationScreen} options={{ title: 'Criar Pedido' }} />
     <Stack.Screen name="ModelSelectionScreen" component={ModelSelectionScreen} options={{ title: 'Selecionar Modelo' }} />
-    <Stack.Screen name="PaymentScreen" component={PaymentScreen} options={{ title: 'Selecionar Modelo' }} />
+    <Stack.Screen name="PaymentScreen" component={PaymentScreen} options={{ title: 'Pagamento' }} />
     <Stack.Screen name="MeusPedidosScreen" component={MeusPedidosScreen} options={{ title: 'Meus Pedidos' }} />
     <Stack.Screen name="GerenciarClientesScreen" component={GerenciarClientesScreen} options={{ title: 'Gerenciar Clientes' }} />
   </Stack.Navigator>
