@@ -1,6 +1,6 @@
 // context/AuthContext.tsx
 import React, { createContext, useState, ReactNode } from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from '@react-native-community/async-storage';
 import { login, register } from '@/services/authService';
 interface AuthContextData {
   token: string | null;
